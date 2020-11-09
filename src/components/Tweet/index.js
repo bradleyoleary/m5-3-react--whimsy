@@ -3,15 +3,22 @@ import styled from "styled-components";
 
 import Header from "./Header";
 import ActionBar from "./ActionBar";
+import { TweetContext } from "../TweetContext";
+import { Stat } from "./Stat";
 
-const Tweet = ({
-  displayName,
-  username,
-  avatarSrc,
-  tweetContents,
-  isRetweetedByCurrentUser,
-  isLikedByCurrentUser,
-}) => {
+const Tweet = () => {
+  const {
+    tweetContents,
+    displayName,
+    username,
+    avatarSrc,
+    isRetweetedByCurrentUser,
+    isLikedByCurrentUser,
+    date,
+    numOfLikes,
+    numOfRetweets,
+  } = React.useContext(TweetContext);
+
   return (
     <Wrapper>
       <Header
@@ -20,6 +27,12 @@ const Tweet = ({
         avatarSrc={avatarSrc}
       />
       <TweetContents>{tweetContents}</TweetContents>
+      <Timestamp>{date}</Timestamp>
+      <Divider />
+      <Stats>
+        <Stat statName="Retweets" statNum={numOfRetweets} />
+        <Stat statName="Likes" statNum={numOfLikes} />
+      </Stats>
       <Divider />
       <ActionBar
         isRetweetedByCurrentUser={isRetweetedByCurrentUser}
